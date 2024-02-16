@@ -4,11 +4,12 @@ import mapping.dtos.ToyDTO;
 import model.Toy;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ToyService {
     List<ToyDTO> addToy(ToyDTO toyDTO) throws Exception;
 
-    void showQuantityByType();
+    Map<Integer, Integer> showQuantityByType();
 
     int getTotalQuantity();
 
@@ -18,15 +19,13 @@ public interface ToyService {
 
     void increaseStock(String name, int quantity);
 
-    void showTypeWithMostToys();
+    Map.Entry<Integer, Integer> showTypeWithMostToys();
 
-    void showTypeWithLeastToys();
+    Map.Entry<Integer, Integer> showTypeWithLeastToys();
 
     List<Toy> getToysWithValueGreaterThan(double value);
 
-    void sortStockByType();
-
-
+    List<ToyDTO> sortStockByType();
 
 
 }

@@ -18,7 +18,7 @@ import model.Toy;
         }
 
 
-        public void showQuantityByType() {
+        public Map<Integer, Integer> showQuantityByType() {
             Map<Integer, Integer> quantityByType = new HashMap<>();
 
             for (Toy toy : toys) {
@@ -29,6 +29,7 @@ import model.Toy;
             for (Map.Entry<Integer, Integer> entry : quantityByType.entrySet()) {
                 System.out.println("Type: " + entry.getKey() + ", Quantity: " + entry.getValue());
             }
+            return quantityByType;
         }
         public int getTotalQuantity() {
             int totalQuantity = 0;
@@ -77,7 +78,7 @@ import model.Toy;
         }
 
 
-        public void showTypeWithMostToys() {
+        public Map.Entry<Integer, Integer> showTypeWithMostToys() {
             Map<Integer, Integer> quantityByType = new HashMap<>();
 
             for (Toy toy : toys) {
@@ -99,9 +100,10 @@ import model.Toy;
             } else {
                 System.out.println("No toys found in the store.");
             }
+            return null;
         }
 
-        public void showTypeWithLeastToys() {
+        public Map.Entry<Integer, Integer> showTypeWithLeastToys() {
             Map<Integer, Integer> quantityByType = new HashMap<>();
 
             for (Toy toy : toys) {
@@ -123,6 +125,7 @@ import model.Toy;
             } else {
                 System.out.println("No toys found in the store.");
             }
+            return null;
         }
         public List<Toy> getToysWithValueGreaterThan(double value) {
             List<Toy> selectedToys = new ArrayList<>();
@@ -136,7 +139,7 @@ import model.Toy;
 
             return selectedToys;
         }
-        public void sortStockByType() {
+        public List<ToyDTO> sortStockByType() {
             Map<Integer, Integer> quantityByType = new HashMap<>();
 
             for (Toy toy : toys) {
@@ -152,6 +155,7 @@ import model.Toy;
                 int quantity = quantityByType.get(type);
                 System.out.println("Type: " + type + ", Quantity: " + quantity);
             }
+            return null;
         }
 
         @Override
