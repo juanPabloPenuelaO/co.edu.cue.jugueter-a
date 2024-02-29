@@ -5,11 +5,12 @@ import model.Toy;
 
 public class ToyMapper {
 
-    public static ToyDTO mapFromModel(Toy toy){
-        return new ToyDTO(toy.getName(),toy.getType(),toy.getPrice(),toy.getQuantity());
+    public static Toy mapFromModel(ToyDTO toyDTO) {
+        return new Toy(toyDTO.name(), toyDTO.type(), toyDTO.price(), toyDTO.quantity());
     }
 
-    public static Toy mapFromDTO(ToyDTO toy){
-        return new Toy(toy.name(),toy.type(),toy.price(),toy.quantity());
+    public static ToyDTO mapFromDTO(Toy toy) {
+        return new ToyDTO(toy.getName(), toy.getType(), toy.getPrice(), toy.getQuantity());
     }
 }
+

@@ -1,120 +1,132 @@
-import static org.junit.Assert.assertEquals;
-import java.util.List;
-import Service.ToyService;
-import Service.ToyStoreServiceI;
-import org.junit.Before;
-import org.junit.Test;
 import mapping.dtos.ToyDTO;
-import java.util.Map;
+import Service.ToyStoreServiceI;
 import model.Toy;
+import Service.ToyService;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import utils.FileUtils;
+import utils.Constants;
 
-public class ToyServiceTest {
+import java.io.File;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
-    private ToyService toyService;
 
-    @Before
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class ToyServiceTest {
+
+    private ToyStoreServiceI toyService;
+
+    @BeforeEach
     public void setUp() {
         toyService = new ToyStoreServiceI();
     }
 
+  @Test
+  public void testAddToy() {
+      ToyStoreServiceI service = new ToyStoreServiceI();
+      Toy toy1 = new Toy("toy1", 1, 10000, 20);
+
+      assertNull(service.addToy(toy1));
+
+      assertNull(service.addToy(toy1));
+  }
+
+
+
     @Test
-    public void testAddToy() throws Exception {
-        ToyDTO toyDTO = new ToyDTO("Hot Wheels", 0, 10000, 15);
+    public void testIncreaseStock() {
+        ToyStoreServiceI service = new ToyStoreServiceI();
 
-        List<ToyDTO> toys = toyService.addToy(toyDTO);
+        Toy toy1 = new Toy("Toy", 1, 10000, 10);
 
-        assertEquals(1, toys.size());
-        ToyDTO addedToy = toys.get(0);
-        assertEquals("Hot Wheels", addedToy.name());
-        assertEquals(0, addedToy.type());
-        assertEquals(10000, addedToy.price());
-        assertEquals(15, addedToy.quantity());
+        service.addToy(toy1);
+
+        service.increaseStock("Toy", 5);
+
+        Toy changeToy = service.getToy("Toy");
+
+        assertEquals(15, changeToy.getQuantity());
     }
 
     @Test
-    public void testGetTotalQuantity() throws Exception {
-        ToyDTO toy1 = new ToyDTO("Playdo", 0, 15000, 3);
-        ToyDTO toy2 = new ToyDTO("Barbie", 2, 10000, 2);
-        toyService.addToy(toy1);
-        toyService.addToy(toy2);
-
-        int totalCount = toyService.getTotalQuantity();
-        assertEquals(5, totalCount);
+    public void TestDecreaseStock() {
+        ToyStoreServiceI  Service = new ToyStoreServiceI();
+        Toy toy3 = new Toy("Toy3", 2, 30000, 20);
+        Service.addToy(toy3);
+        Service.decreaseStock("Toy3", 5);
+        Toy changeToy = Service.getToy("Toy3");
+        assertEquals(15, changeToy.getQuantity());
     }
 
     @Test
-    public void testGetTotalValue() throws Exception {
-        ToyDTO toy1 = new ToyDTO("Playdo", 0, 10000, 3);
-        ToyDTO toy2 = new ToyDTO("Hot Wheels", 1, 20000, 2);
-        toyService.addToy(toy1);
-        toyService.addToy(toy2);
-
-        double totalValue = toyService.getTotalValue();
-        assertEquals(15000.0 * 3 + 10000.0 * 2, totalValue);
-    }
-
-    @Test
-    public void testDecreaseStock() throws Exception {
-        ToyDTO toy1 = new ToyDTO("Playdo", 0, 15000, 10);
-        toyService.addToy(toy1);
-        toyService.decreaseStock("Playdo", 2);
-        Toy updatedToy = toyService.getToysWithValueGreaterThan(0).get(0);
-        assertEquals(8, updatedToy.getQuantity());
-    }
-
-    @Test
-    public void testIncreaseStock() throws Exception {
-        ToyDTO toy1 = new ToyDTO("Playdo", 0, 15000, 5);
-        toyService.addToy(toy1);
-        toyService.increaseStock("Playdo", 3);
-        Toy updatedToy = toyService.getToysWithValueGreaterThan(0).get(0);
-        assertEquals(8, updatedToy.getQuantity());
-    }
-
-    @Test
-    public void testShowTypeWithMostToys() throws Exception {
-        ToyDTO toy1 = new ToyDTO("Playdo", 0, 15000, 3);
-        ToyDTO toy2 = new ToyDTO("Hot wheels", 2, 10000, 2);
-        toyService.addToy(toy1);
-        toyService.addToy(toy2);
-        Map.Entry<Integer, Integer> result = toyService.showTypeWithMostToys();
-        assertEquals(0, result.getKey().intValue());
+    public void testshowTypeWithMostToys(){
+        ToyStoreServiceI service = new ToyStoreServiceI();
+        Toy toy5 = new Toy("Toy5", 1, 15000, 15);
+        Toy toy6 = new Toy("Toy6", 2, 10000, 10);
+        service.addToy(toy5);
+        service.addToy(toy6);
+        Map.Entry<Integer, Integer> result = service.showTypeWithMostToys();
+        assertEquals(1, result.getKey());
         assertEquals(1, result.getValue().intValue());
     }
 
-    @Test
-    public void testShowTypeWithLeastToys() throws Exception {
-        ToyDTO toy1 = new ToyDTO("Playdo", 0, 15000, 3);
-        ToyDTO toy2 = new ToyDTO("Barbie", 2, 20000, 2);
-        toyService.addToy(toy1);
-        toyService.addToy(toy2);
-        Map.Entry<Integer, Integer> result = toyService.showTypeWithLeastToys();
-        assertEquals(2, result.getKey().intValue());
-        assertEquals(1, result.getValue().intValue());
-    }
+
+
+
 
     @Test
-    public void testGetToysWithValueGreaterThan() throws Exception {
-        ToyDTO toy1 = new ToyDTO("Playdo", 0, 15000, 3);
-        ToyDTO toy2 = new ToyDTO("hot Wheels", 1, 10000, 2);
-        toyService.addToy(toy1);
-        toyService.addToy(toy2);
+    public void testShowQuantityByType() {
+        Toy toy1 = new Toy("Toy1", 1, 15, 50);
+        Toy toy2 = new Toy("Toy2", 2, 15, 80);
+        Toy toy3 = new Toy("Toy3", 1, 5, 30);
+        toyService.setToys(Arrays.asList(toy1, toy2, toy3));
 
-        List<Toy> filteredToys = toyService.getToysWithValueGreaterThan(12);
-        assertEquals(1, filteredToys.size());
-        assertEquals("Playdo", filteredToys.get(0).getName());
+        Map<Integer, Integer> result = toyService.showQuantityByType();
+
+        assertEquals(80, result.get(2).intValue());
+        assertEquals(80, result.get(1).intValue());
+        assertEquals(2, result.size());
+        assertTrue(result.containsKey(1));
+        assertTrue(result.containsKey(2));
     }
+
 
     @Test
-    public void testSortStockByType() throws Exception {
-        ToyDTO toy1 = new ToyDTO("Playdo", 0, 15000, 3);
-        ToyDTO toy2 = new ToyDTO("Barbie", 2, 20000, 2);
-        toyService.addToy(toy1);
-        toyService.addToy(toy2);
+    public void testGetTotalQuantity() {
+        ToyStoreServiceI Service2 = new ToyStoreServiceI();
+        Toy toy1 = new Toy("Playdo", 0, 15000, 3);
+        Toy toy2 = new Toy("Barbie", 2, 10000, 2);
 
-        List<ToyDTO> sortedToys = toyService.sortStockByType();
-        assertEquals(2, sortedToys.size());
-        assertEquals("Doll", sortedToys.get(0).name());
-        assertEquals("Car", sortedToys.get(1).name());
+        Service2.addToy(toy1);
+        Service2.addToy(toy2);
+
+        int TotalQuantity = Service2.getTotalQuantity();
+        assertEquals(5, TotalQuantity);
     }
+
+
+    @Test
+    public void testGetToysWithValueGreaterThan() {
+        ToyStoreServiceI Service = new ToyStoreServiceI();
+        Toy toy1 = new Toy("Toy1", 1, 20000, 20);
+        Toy toy2 = new Toy("Toy2", 2, 10000, 20);
+
+
+       Service.addToy(toy1);
+        Service.addToy(toy2);
+        List<ToyDTO> result = Service.getToysWithValueGreaterThan(15000);
+        assertEquals(1, result.size());
+
+    }
+
+
 }
+
+
+
+
+

@@ -1,3 +1,7 @@
 package mapping.dtos;
-public record ToyDTO(String name, int type, double price, int quantity) {
+
+import java.io.Serializable;
+
+public record ToyDTO(String name, int type, double price, int quantity) implements Serializable {
 }
+

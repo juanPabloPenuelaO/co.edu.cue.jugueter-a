@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface ToyService {
-    List<ToyDTO> addToy(ToyDTO toyDTO) throws Exception;
+    boolean verifyToyExists(String name);
+
 
     Map<Integer, Integer> showQuantityByType();
 
@@ -23,9 +24,11 @@ public interface ToyService {
 
     Map.Entry<Integer, Integer> showTypeWithLeastToys();
 
-    List<Toy> getToysWithValueGreaterThan(double value);
+    List<ToyDTO> getToysWithValueGreaterThan(double value);
 
     List<ToyDTO> sortStockByType();
 
 
+    void setToys(List<Toy> toys);
+    List<Toy> addToy(Toy toy) throws IllegalArgumentException;
 }

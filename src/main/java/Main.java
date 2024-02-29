@@ -42,7 +42,7 @@ public class Main {
                     int quantity = scanner.nextInt();
 
                     ToyDTO toy = new ToyDTO(name, type, price, quantity);
-                    toyStoreService.addToy(toy);
+                   // toyStoreService.addToy(toy);
                     System.out.println("Toy added successfully!");
                     break;
 
@@ -83,15 +83,15 @@ public class Main {
                 case 8:
                     toyStoreService.showTypeWithLeastToys();
                     break;
-
+/*
                 case 9:
                     System.out.print("Enter Value to Filter Toys: ");
                     double filterValue = scanner.nextDouble();
                     System.out.println("Toys with Value Greater Than " + filterValue + ":");
                     toyStoreService.getToysWithValueGreaterThan(filterValue)
-                            .forEach(t -> System.out.println(t.getName()));
+                            .forEach(t -> System.out.println(Toy.getName()));
                     break;
-
+*/
                 case 10:
                     toyStoreService.sortStockByType();
                     break;

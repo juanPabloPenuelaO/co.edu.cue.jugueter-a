@@ -1,10 +1,13 @@
 package model;
 
-public class Toy {
+import java.io.Serializable;
+
+public class Toy implements Serializable{
     private String name;
     private int type;
     private double price;
     private int quantity;
+
 
     public Toy(String name, int type, double price, int quantity) {
         this.name = name;
