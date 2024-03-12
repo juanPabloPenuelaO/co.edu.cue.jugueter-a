@@ -12,7 +12,7 @@ public class ventaMapper {
 
     public static ventas mapFromDto(VentaDTO ventaDTO){
         return ventas.builder()
-                .id(ventaDTO.id())
+                .id(ventaDTO.ID())
                 .estado_Oferta(ventaDTO.estado_Oferta())
                 .Cantidad(ventaDTO.cantidad())
                 .idToy(ventaDTO.idToy())

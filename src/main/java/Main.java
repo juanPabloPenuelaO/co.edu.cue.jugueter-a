@@ -1,5 +1,6 @@
 import java.sql.Connection;
 import java.sql.Date;
+import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.CompletableFuture;
 
@@ -76,10 +77,10 @@ public class Main {
                         String nombre = scanner.nextLine();
                         System.out.print("Sex: ");
                         String sexo = scanner.nextLine();
-                        System.out.print("Joining Date (YYYY-MM-DD): ");
+                        System.out.print("Joining(YYYY-MM-DD): ");
                         Date Fecha_ingreso = Date.valueOf(scanner.nextLine());
                         System.out.print("Status: ");
-                        int Estado = Integer.parseInt(scanner.nextLine());
+                        String Estado = String.valueOf(Integer.parseInt(scanner.nextLine()));
 
                         EmpleadoDTO empleadoDTO = new EmpleadoDTO(id, nombre, sexo, Fecha_ingreso, Estado);
 
@@ -92,6 +93,112 @@ public class Main {
                             }
                         });
 
+                        break;
+
+                    case 3:
+                        System.out.println("Enter Customer:");
+                        System.out.println("id: ");
+                        int Id = Integer.parseInt(scanner.nextLine());
+                        System.out.println("Name: ");
+                        String Nombre = scanner.nextLine();
+                        System.out.println("Sex: ");
+                        String Sexo = scanner.nextLine();
+                        System.out.println("birthDay(YYYY-MM-DD): ");
+                        Date Fecha_nacimiento = Date.valueOf(scanner.nextLine());
+                        System.out.println("children: ");
+                        int hijos = Integer.parseInt(scanner.nextLine());
+                        System.out.println("State: ");
+                        String estado = scanner.nextLine();
+
+                        ClienteDTO clienteDTO = new ClienteDTO(Id, Nombre, Sexo, Fecha_nacimiento, hijos, estado);
+
+                        CompletableFuture.runAsync(() -> {
+                            try {
+                                toystore.addCliente(clienteDTO);
+                                System.out.println("Customer added successfully");
+                            } catch (Exception e) {
+                                System.out.println("Error adding Customer: " + e.getMessage());
+                            }
+                        });
+
+                        break;
+
+                    case 4:
+                        System.out.println("Enter Sale:");
+                        System.out.println("id: ");
+                        int ID = Integer.parseInt(scanner.nextLine());
+                        System.out.println("offer Status : ");
+                        String estado_Oferta = scanner.nextLine();
+                        System.out.println("quantity: ");
+                        int cantidad = Integer.parseInt(scanner.nextLine());
+                        System.out.println("idToy: ");
+                        int idToy = Integer.parseInt(scanner.nextLine());
+                        System.out.println("idCustomer: ");
+                        int idCliente = Integer.parseInt(scanner.nextLine());
+                        System.out.println("idEmployee: ");
+                        int idEmpleado = Integer.parseInt(scanner.nextLine());
+                        System.out.println("Date of Sale(YYYY-MM-DD): ");
+                        Date fecha_compra= Date.valueOf(scanner.nextLine());
+                        System.out.println("idBill: ");
+                        int idFactura = Integer.parseInt(scanner.nextLine());
+
+                        VentaDTO ventaDTO = new VentaDTO(ID, estado_Oferta, cantidad, idToy, idCliente, idEmpleado, fecha_compra, idFactura);
+
+                        CompletableFuture.runAsync(() -> {
+                            try {
+                                toystore.addVenta(ventaDTO);
+                                System.out.println("Sale added successfully");
+                            } catch (Exception e) {
+                                System.out.println("Error adding Sale: " + e.getMessage());
+                            }
+                        });
+
+                        break;
+
+                    case 5:
+                        CompletableFuture<List<ToyDTO>> future = CompletableFuture.supplyAsync(() -> {
+                            List<ToyDTO> list = toystore.ListToy();
+                            if (!list.isEmpty()) {
+                                for (ToyDTO toys : list) {
+                                    System.out.println(toys);
+                                    System.out.println("loading");
+                                    try {
+                                        Thread.sleep(3000);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            } else {
+                                System.out.println("There are no toys on the list");
+                            }
+                            return list;
+                        });
+                        future.join();
+                        System.out.println("The task is completed");
+
+                        break;
+
+                    case 8:
+                        toystore.showQuantityByType();
+                    case 9:
+                        toystore.getTotalQuantity();
+                    case 10:
+                        toystore.getTotalValue();
+                    case 11:
+                      //  toystore.decreaseStock();
+                    case 12:
+                     //   toystore.increaseStock();
+                    case 13:
+                        toystore.showTypeWithMostToys();
+                    case 14:
+                        toystore.showTypeWithLeastToys();
+                    case 15:
+                     //   toystore.getToysWithValueGreaterThan();
+                    case 16:
+                        toystore.sortStockByType();
+
+
+
                     case 0:
                         exit = true;
                         System.out.println("Exiting the program. Goodbye!");
@@ -99,6 +206,7 @@ public class Main {
                     default:
                         System.out.println("Invalid choice. Please enter a valid option.");
                 }
+
             }
 
             scanner.close();

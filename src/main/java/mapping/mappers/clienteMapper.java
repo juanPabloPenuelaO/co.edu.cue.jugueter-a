@@ -12,12 +12,12 @@ public class clienteMapper {
 
     public static clientes mapFromDto(ClienteDTO clienteDTO){
         return clientes.builder()
-                .id(clienteDTO.id())
-                .nombre(clienteDTO.nombre())
-                .sexo(clienteDTO.sexo())
+                .id(clienteDTO.Id())
+                .nombre(clienteDTO.Nombre())
+                .sexo(clienteDTO.Sexo())
                 .Fecha_nacimiento((Date) clienteDTO.Fecha_nacimiento())
                 .hijos(clienteDTO.hijos())
-                .Estado(clienteDTO.Estado())
+                .Estado(clienteDTO.estado())
                 .build();
     }
 }
