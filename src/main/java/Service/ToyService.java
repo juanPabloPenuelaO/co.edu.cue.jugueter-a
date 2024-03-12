@@ -1,34 +1,26 @@
 package Service;
 
-import mapping.dtos.ToyDTO;
-import model.Toy;
+import mapping.dtos.*;
 
 import java.util.List;
 import java.util.Map;
+import model.Toys;
 
 public interface ToyService {
-    boolean verifyToyExists(String name);
 
+    void addToy(ToyDTO toyDTO);
 
-    Map<Integer, Integer> showQuantityByType();
+    void addEmpleado(EmpleadoDTO empleadoDTO);
 
-    int getTotalQuantity();
+    void addCliente(ClienteDTO clienteDTO);
 
-    double getTotalValue();
+    void addFactura(FacturaDTO facturaDTO);
 
-    void decreaseStock(String name, int quantity);
+    void addVenta(VentaDTO ventaDTO);
 
-    void increaseStock(String name, int quantity);
+    List<EmpleadoDTO> listEmpleados();
 
-    Map.Entry<Integer, Integer> showTypeWithMostToys();
+    List<ClienteDTO> ListCliente();
 
-    Map.Entry<Integer, Integer> showTypeWithLeastToys();
-
-    List<ToyDTO> getToysWithValueGreaterThan(double value);
-
-    List<ToyDTO> sortStockByType();
-
-
-    void setToys(List<Toy> toys);
-    List<Toy> addToy(Toy toy) throws IllegalArgumentException;
+    List<FacturaDTO> ListFactura();
 }
