@@ -2,7 +2,6 @@ package repository.impl;
 import java.util.List;
 import java.util.Map;
 
-import mapping.dtos.ToyDTO;
 import model.Toys;
 
 
@@ -27,9 +26,9 @@ public interface ToyRepository<T> {
 
     Map.Entry<Integer, Integer> showTypeWithLeastToys();
 
-    List<ToyDTO> getToysWithValueGreaterThan(double value);
+    List<Toys> getToysWithValueGreaterThan(double value);
 
-    List<ToyDTO> sortStockByType();
+    List<Toys> sortStockByType();
 
 
     void setToys(List<Toys> toys);

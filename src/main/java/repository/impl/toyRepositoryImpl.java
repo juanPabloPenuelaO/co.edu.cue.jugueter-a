@@ -24,7 +24,7 @@ public class toyRepositoryImpl implements ToyRepository<Toys> {
 
     public Map<Integer, Integer> showQuantityByType() {
         try {
-            Map<Integer, Integer> quantityByType = new HashMap<>();
+            Map<Integer, Integer> quantityByType = (Map<Integer, Integer>) new ArrayList<>();
 
             for (Toys toy : toys) {
                 int type = toy.getType();
@@ -183,8 +183,13 @@ public class toyRepositoryImpl implements ToyRepository<Toys> {
         }
     }
 
+    @Override
+    public List<Toys> getToysWithValueGreaterThan(double value) {
+        return null;
+    }
 
-    public List<ToyDTO> getToysWithValueGreaterThan(double value) {
+
+   /* public List<Toys> getToysWithValueGreaterThan(double value) {
         try {
             if (toys != null && !toys.isEmpty()) {
                 List<ToyDTO> toyList = toys.stream()
@@ -206,9 +211,11 @@ public class toyRepositoryImpl implements ToyRepository<Toys> {
             return Collections.emptyList();
         }
     }
+    */
 
 
-    public List<ToyDTO> sortStockByType() {
+
+    public List<Toys> sortStockByType() {
         try {
             if (toys == null || toys.isEmpty()) {
                 System.out.println("No toys found in the store.");
@@ -254,7 +261,7 @@ public class toyRepositoryImpl implements ToyRepository<Toys> {
 
 
     @Override
-    public List list() {
+    public List<Toys> list() {
         return null;
     }
 

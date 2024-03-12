@@ -23,4 +23,24 @@ public interface ToyService {
     List<ClienteDTO> ListCliente();
 
     List<FacturaDTO> ListFactura();
+
+    List<ToyDTO> ListToy();
+
+    int showQuantityByType();
+
+    int getTotalQuantity();
+
+    double getTotalValue();
+
+    void decreaseStock(String name, int quantity);
+
+    void increaseStock(String name, int quantity);
+
+    Map.Entry<Integer, Integer> showTypeWithMostToys();
+
+    Map.Entry<Integer, Integer> showTypeWithLeastToys();
+
+    List<ToyDTO> getToysWithValueGreaterThan(double value);
+
+    List<ToyDTO> sortStockByType();
 }

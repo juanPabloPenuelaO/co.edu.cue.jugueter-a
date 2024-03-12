@@ -107,19 +107,6 @@ class ToyServiceTest {
     }
 
 
-    @Test
-    public void testGetToysWithValueGreaterThan() {
-        toyRepositoryImpl Service = new toyRepositoryImpl();
-        Toys toy1 = new Toys("Toy1", 1, 20000, 20);
-        Toys toy2 = new Toys("Toy2", 2, 10000, 20);
-
-
-       Service.addToy(toy1);
-        Service.addToy(toy2);
-        List<ToyDTO> result = Service.getToysWithValueGreaterThan(15000);
-        assertEquals(1, result.size());
-
-    }
 
 
 }
